@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="container">
-      frthrt
+      usetrr dashboaqrd
     </div>
 @endsection

@@ -17,10 +17,25 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
+
+
+
 Route::get('/home', 'Home\HomeController@index')->name('home');
 Route::get('/admin/login', 'Admin\AdminController@index')->name('admin');
 Route::post('/admin/login', 'Auth\Admin\AdminLoginController@login')->name('admin.login');
 Route::post('/home','Auth\User\UserLoginController@login')->name('user.login');
+Route::post('/register','Auth\User\UserRegisterController@register')->name('user.register');
+
+
+
+Route::get('/register',function (){
+    return view('user/register');
+})->name('register');
+Route::get('/home',function (){
+    return view('home');
+})->name('login');
 
 Route::middleware('admin')->group(function () {
     Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
