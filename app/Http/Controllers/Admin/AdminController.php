@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+use App\Contracts\IUserService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 class AdminController extends Controller
 {
+    protected $userRepo;
+
+    public function __construct(IUserService $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
+
     public function index()
     {
         return view('admin.admin');
@@ -18,17 +28,17 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        if(Auth::user() && Auth::user()->roles->first()->id == 1) {
             return view('admin.dashboard');
-        }
-        else{
-            dd('validator');
-        }
-
     }
 
-    public function basic()
+    public function datatable()
     {
-       dd(1);
+        return view('admin.datatabel');
+    }
+
+    public function users(){
+        $users = $this->userRepo->getData();
+        return view('admin/dashboard',[ 'users'=> $users ]);
+//        dd( $users);
     }
 }

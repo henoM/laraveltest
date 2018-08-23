@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class UserLoginController extends Controller
 {
@@ -40,6 +41,7 @@ class UserLoginController extends Controller
 
     public function login(Request $request)
     {
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -53,9 +55,8 @@ class UserLoginController extends Controller
 
         if ($this->guard()->validate($this->credentials($request))) {
             $user = $this->guard()->getLastAttempted();
-
             // Make sure the user is active
-            if ($user->roles->first()->id == 2 && $this->attemptLogin($request)) {
+            if ($user->roles()->where('name', config('auth.roles.user_role'))->exists() && $this->attemptLogin($request)) {
                 // Send the normal successful login response
                 return $this->sendLoginResponse($request);
             }

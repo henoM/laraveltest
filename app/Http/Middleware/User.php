@@ -16,7 +16,7 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user() && Auth::user()->roles->first()->id == 2) {
+        if(Auth::user() && Auth::user()->roles->first()->name== 'user') {
             return $next($request);
         } else {
             return redirect()->back();;

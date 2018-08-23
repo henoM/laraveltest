@@ -8,7 +8,7 @@
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 </head>
 <body>
-<a href="{{ route('login') }}">Login</a>
+<a href="{{ route('user.login') }}">Login</a>
 <a href="{{ route('register') }}">Register</a>
 <div class="limiter">
     <div class="container-login100">

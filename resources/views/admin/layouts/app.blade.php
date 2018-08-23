@@ -41,13 +41,16 @@
     </script>
 </head>
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-<br><br>
+
 @include('admin.layouts.header')
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+            @include('admin.layouts.sitebar')
 
-@section('content')
+            @section('content')
 
-    @show
+            @show
 
+</div>
 @include('admin.layouts.footer')
 
 <!-- end::Footer -->
@@ -58,8 +61,9 @@
 
 <!--begin::Page Vendors -->
 {!! Html::script(asset('admin/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js'))  !!}
+{!! Html::script(asset('admin/assets/demo/default/custom/components/datatables/child/data-ajax.js'))  !!}
 {!! Html::script(asset('admin/assets/app/js/dashboard.js'))  !!}
-@yield('scripts')
+
 
 
 </body>

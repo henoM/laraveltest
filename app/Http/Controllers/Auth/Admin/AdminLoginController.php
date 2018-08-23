@@ -41,6 +41,7 @@ class AdminLoginController extends Controller
 
     public function login(Request $request)
     {
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -54,9 +55,8 @@ class AdminLoginController extends Controller
 
         if ($this->guard()->validate($this->credentials($request))) {
             $user = $this->guard()->getLastAttempted();
-
             // Make sure the user is active
-            if ($user->roles->first()->id == 1 && $this->attemptLogin($request)) {
+            if ($user->roles()->where('name', config('auth.roles.admin_role'))->exists() && $this->attemptLogin($request)) {
                 // Send the normal successful login response
                 return $this->sendLoginResponse($request);
             }

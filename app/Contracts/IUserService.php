@@ -17,4 +17,6 @@ interface IUserService
      * @return mixed
      */
     public function store($data);
+
+    public function getData();
 }

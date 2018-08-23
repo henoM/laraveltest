@@ -28,11 +28,10 @@ Route::post('/admin/login', 'Auth\Admin\AdminLoginController@login')->name('admi
 Route::post('/home','Auth\User\UserLoginController@login')->name('user.login');
 Route::post('/register','Auth\User\UserRegisterController@register')->name('user.register');
 
-
-
 Route::get('/register',function (){
     return view('user/register');
 })->name('register');
+
 Route::get('/home',function (){
     return view('home');
 })->name('login');
@@ -40,12 +39,14 @@ Route::get('/home',function (){
 Route::middleware('admin')->group(function () {
     Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
         Route::get('/dashboard','AdminController@dashboard')->name('admin.dashboard');
-        Route::get('/basic','AdminController@basic')->name('admin.basic');
+        Route::get('/datatable','AdminController@datatable')->name('datatable');
+        Route::get('/users','AdminController@users')->name('users');
     });
 });
 Route::middleware('user')->group(function () {
     Route::group(['prefix' => 'user','namespace' => 'User'], function () {
         Route::get('/dashboard','UserController@dashboard')->name('user.dashboard');
+
     });
 });
 
