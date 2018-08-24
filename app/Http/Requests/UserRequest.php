@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -26,11 +27,22 @@ class UserRequest extends FormRequest
     public function rules()
     {
 
-        return [
+
+        $rules =  [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' =>'required|string|min:3|confirmed',
         ];
+        if ($this->method() == "POST") {
+            $rules['email'] = 'required|string|email|max:255|unique:users';
+            $rules['password'] = 'required|string|min:3|confirmed';
+            return $rules;
+
+        } elseif ($this->method() == "PUT") {
+            return $rules;
+
+        } else {
+            return [];
+        }
+
     }
 
 

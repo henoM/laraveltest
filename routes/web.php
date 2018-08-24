@@ -41,6 +41,9 @@ Route::middleware('admin')->group(function () {
         Route::get('/dashboard','AdminController@dashboard')->name('admin.dashboard');
         Route::get('/datatable','AdminController@datatable')->name('datatable');
         Route::get('/users','AdminController@users')->name('users');
+        Route::get('/update/{id}','AdminController@updateShow')->name('admin.show.update');
+        Route::put('/edit/{id}','AdminController@edit')->name('admin.edit');
+        Route::get('/delete/{id}','AdminController@delete')->name('admin.delete');
     });
 });
 Route::middleware('user')->group(function () {

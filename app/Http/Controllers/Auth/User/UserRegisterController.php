@@ -63,11 +63,12 @@ class UserRegisterController extends Controller
 
     public function register(UserRequest $request)
     {
-        try {
+//        try {
             $user = $this->userRepo->store($request->all());
             $user->roles()->sync([2]);
-        } catch (\Exception $e) {
-            report($e);
-        }
+            return redirect()->back();
+//        } catch (\Exception $e) {
+//            report($e);
+//        }
     }
 }

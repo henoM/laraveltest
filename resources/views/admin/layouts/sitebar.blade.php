@@ -1,4 +1,4 @@
-<div class="m-grid m-grid--hor m-grid--root m-page">
+<div class="m-grid m-grid--hor m-grid--root m-page" style="flex: unset;martgin-left:50px;">
     <!-- BEGIN: Header -->
     <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
         <!-- BEGIN: Aside Menu -->
@@ -75,7 +75,7 @@
                                 <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
                                     <ul class="m-menu__subnav">
                                         <li class="m-menu__item " aria-haspopup="true"><a
-                                                    href="{{route('users')}}"
+                                                    href="#"
                                                     class="m-menu__link "><i
                                                         class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
                                                         class="m-menu__link-text">Default Style</span></a></li>
@@ -101,14 +101,15 @@
                 </li>
                 <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
                     data-menu-submenu-toggle="hover"><a
-                            href="#" class="m-menu__link m-menu__toggle"><i
+                            href="{{route('datatable')}}" class="m-menu__link m-menu__toggle"><i
                                 class="m-menu__link-icon flaticon-tabs"></i><span class="m-menu__link-text">Datatables</span><i
                                 class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
                             <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span
                                         class="m-menu__link"><span
-                                            class="m-menu__link-text">Datatables</span></span></li>
+                                            class="m-menu__link-text">Datatables</span></span>
+                              </li>
                             <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
                                 data-menu-submenu-toggle="hover"><a href="#" class="m-menu__link m-menu__toggle"><i
                                             class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
@@ -116,9 +117,7 @@
                                             class="m-menu__ver-arrow la la-angle-right"></i></a>
                                 <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
                                     <ul class="m-menu__subnav">
-                                        <li class="m-menu__item " aria-haspopup="true"><a
-                                                    href="{{route('datatable')}}"
-                                                    class="m-menu__link "><i
+                                        <li class="m-menu__item " aria-haspopup="true"><i
                                                         class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
                                                         class="m-menu__link-text">Local Data</span></a></li>
                                     </ul>

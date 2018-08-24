@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Contracts\IUserService;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -37,8 +38,22 @@ class AdminController extends Controller
     }
 
     public function users(){
-        $users = $this->userRepo->getData();
-        return view('admin/dashboard',[ 'users'=> $users ]);
-//        dd( $users);
+        return $users = $this->userRepo->getData();
     }
+
+    public function edit(UserRequest $request,$id){
+        $this->userRepo->update($request,$id);
+        return redirect()->back();
+    }
+    public function updateShow($id){
+        $user = $this->userRepo->showUpdate($id);
+        return view('admin.partials._update',['user'=>$user]);
+    }
+
+    public function delete($id){
+        $this->userRepo->delete($id);
+        return    redirect()->back();
+    }
+
+
 }

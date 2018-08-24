@@ -18,5 +18,33 @@ interface IUserService
      */
     public function store($data);
 
+    /**
+     * Get all data
+     * @param $data
+     * @return mixed
+     */
     public function getData();
+
+    /**
+     * Get user data for update
+     * @param $data
+     * @return mixed
+     */
+    public  function  showUpdate($id);
+
+    /**
+     * update user
+     * @param $data
+     * @return mixed
+     */
+//    public  function  update($data,$id);
+
+    /**
+     * Deleted user
+     * @param $data
+     * @return mixed
+     */
+    public  function  delete($id);
+
+
 }
