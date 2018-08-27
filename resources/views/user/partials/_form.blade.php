@@ -4,7 +4,11 @@
 <span class="login100-form-title p-b-48">
 						<i class="zmdi zmdi-font"></i>
 					</span>
-
+@if(session('info'))
+	<div class="alert alert-success login100-form-title p-b-48">
+		{{session('info')}}
+	</div>
+@endif
 <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
     {!!  Form::text('name', null, ['class' => 'input100'])!!}
 	<span class="focus-input100" data-placeholder="First Name"></span>

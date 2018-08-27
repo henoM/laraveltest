@@ -6,10 +6,10 @@
  * Time: 6:55 PM
  */
 
-namespace App\Contracts;
+namespace App\Contracts\Admin\User;
 
 
-interface IUserService
+interface UserInterface
 {
     /**
      * Store
@@ -30,14 +30,14 @@ interface IUserService
      * @param $data
      * @return mixed
      */
-    public  function  showUpdate($id);
+    public  function  getById($id);
 
     /**
      * update user
      * @param $data
      * @return mixed
      */
-//    public  function  update($data,$id);
+    public  function  update($data,$id);
 
     /**
      * Deleted user
@@ -46,5 +46,10 @@ interface IUserService
      */
     public  function  delete($id);
 
-
+    /**
+     * @param $data
+     * @param $id
+     * @return mixed
+     */
+    public  function  activate($data);
 }

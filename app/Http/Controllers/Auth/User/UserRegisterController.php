@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Auth\User;
 
-use App\Contracts\IUserService;
-use App\Http\Requests\UserRequest;
-use App\User;
+use App\Contracts\Admin\User\UserInterface;
+use App\Http\Requests\UserCreateRequest;
+use App\Notifications\UserRegister;
+use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -38,7 +39,7 @@ class UserRegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(IUserService $userRepo)
+    public function __construct(UserInterface $userRepo)
     {
         $this->middleware('guest');
         $this->userRepo = $userRepo;
@@ -48,27 +49,31 @@ class UserRegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User\User
      */
-//    protected function create(array $data)
-//    {
-//        return User::create([
-//            'name' => $data['name'],
-//            'email' => $data['email'],
-//            'password' => bcrypt($data['password']),
-//        ]);
-//    }
-
-
-
-    public function register(UserRequest $request)
+    public function register(UserCreateRequest $request)
     {
-//        try {
+        try {
             $user = $this->userRepo->store($request->all());
             $user->roles()->sync([2]);
-            return redirect()->back();
-//        } catch (\Exception $e) {
-//            report($e);
-//        }
+            $user->notify(new UserRegister($user));
+            return redirect()
+                            ->back()
+                            ->with('info', 'We sent you a message to the email address');
+        } catch (\Exception $e) {
+            report($e);
+        }
+    }
+
+    /**
+     * activate account
+     *
+     * @param Request $request
+     */
+
+    public function activateUser($token)
+    {
+        $this->userRepo->activate($token);
+        return view('user.partials.activate');
     }
 }

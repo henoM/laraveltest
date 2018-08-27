@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UserRequest extends FormRequest
+class UserCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +16,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
+
         return true;
     }
 
@@ -26,22 +27,11 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-
-
-        $rules =  [
+        return [
             'name' => 'required|string|max:255',
+            'email' =>'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:3|confirmed'
         ];
-        if ($this->method() == "POST") {
-            $rules['email'] = 'required|string|email|max:255|unique:users';
-            $rules['password'] = 'required|string|min:3|confirmed';
-            return $rules;
-
-        } elseif ($this->method() == "PUT") {
-            return $rules;
-
-        } else {
-            return [];
-        }
 
     }
 
@@ -52,6 +42,7 @@ class UserRequest extends FormRequest
     protected function getValidatorInstance()
     {
 
+
         $validator = parent::getValidatorInstance();
 
         if (!$validator->fails())
@@ -60,7 +51,7 @@ class UserRequest extends FormRequest
 
             if ($this->method() == "POST") {
                 $input['password'] = Hash::make($input['password']);
-
+                $input['token'] = str_random(60);
                 $this->replace($input);
             }
             elseif ($this->method() == "PUT") {

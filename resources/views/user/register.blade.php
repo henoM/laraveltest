@@ -10,9 +10,12 @@
 <body>
 <a href="{{ route('login') }}">Login</a>
 <a href="{{ route('register') }}">Register</a>
+
 <div class="limiter">
+
     <div class="container-login100">
         <div class="wrap-login100">
+
             {!! Form::open(array('route' => 'user.register')) !!}
 
             @include('user.partials._form')

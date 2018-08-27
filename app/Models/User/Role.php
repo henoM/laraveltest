@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Role extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User','role_user','user_id','role_id');
+        return $this->hasMany('App\Models\User\User');
     }
 }

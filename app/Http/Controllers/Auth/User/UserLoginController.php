@@ -41,7 +41,6 @@ class UserLoginController extends Controller
 
     public function login(Request $request)
     {
-
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -56,16 +55,29 @@ class UserLoginController extends Controller
         if ($this->guard()->validate($this->credentials($request))) {
             $user = $this->guard()->getLastAttempted();
             // Make sure the user is active
-            if ($user->roles()->where('name', config('auth.roles.user_role'))->exists() && $this->attemptLogin($request)) {
-                // Send the normal successful login response
-                return $this->sendLoginResponse($request);
+            if ($user->is_active && $this->attemptLogin($request)) {
+                if ($user->roles()->where('name', config('auth.roles.user_role'))->exists() && $this->attemptLogin($request)) {
+                    // Send the normal successful login response
+                    return $this->sendLoginResponse($request);
+                }
+                else {
+                    return redirect()
+                        ->back()
+                        ->withInput($request->only($this->username(), 'remember'))
+                        ->with('warning', '“Invalid Email or Password”');
+                }
+
             }
             else {
+                // Increment the failed login attempts and redirect back to the
+                // login form with an error message.
+                $this->incrementLoginAttempts($request);
                 return redirect()
                     ->back()
                     ->withInput($request->only($this->username(), 'remember'))
-                    ->with('warning', '“Invalid Email or Password”');
+                    ->with('warning', 'You need to verify your account. We have sent you an activation code, please check your email.');
             }
+
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

@@ -25,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //UserRepo
         $this->app->bind(
-            'App\Contracts\IUserService',
-            'App\Repositories\UserRepository'
+            'App\Contracts\Admin\User\UserInterface',
+            'App\Repositories\Admin\User\UserRepository'
         );
     }
 }

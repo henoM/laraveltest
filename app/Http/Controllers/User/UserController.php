@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Contracts\IUserService;
-use Illuminate\Http\Request;
+
+
+use App\Contracts\Admin\User\UserInterface;
 use App\Http\Controllers\Controller;
 use Auth;
 class UserController extends Controller
 {
     protected $userRepo;
 
-    public function __construct(IUserService $userRepo)
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  UserInterface $userRepo
+     * @param  integer $userId
+     * @return view
+     */
+    public function __construct(UserInterface $userRepo)
     {
         $this->userRepo = $userRepo;
     }
@@ -20,7 +28,5 @@ class UserController extends Controller
         return view('user.dashboard');
     }
 
-
-
-    }
+}
 

@@ -14,8 +14,8 @@ class AddFilesToUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('is_active');
-            $table->string('token');
+            $table->boolean('is_active')->default(0);
+            $table->string('token')->nullable()->unique();
         });
     }
 
@@ -26,6 +26,9 @@ class AddFilesToUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->deleteColumn('is_active');
+            $table->deleteColumn('token');
+        });
     }
 }
