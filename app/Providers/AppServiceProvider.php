@@ -28,5 +28,14 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\Admin\User\UserInterface',
             'App\Repositories\Admin\User\UserRepository'
         );
+        $this->app->bind(
+            'App\Contracts\User\Home\HomeInterface',
+            'App\Repositories\User\Home\HomeRepository'
+        );
+
+        $this->app->bind(
+            'App\Contracts\User\Family\FamilyInterface',
+            'App\Repositories\User\Family\FamilyRepository'
+        );
     }
 }

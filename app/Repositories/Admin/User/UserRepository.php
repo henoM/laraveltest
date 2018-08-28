@@ -30,7 +30,7 @@ class UserRepository implements UserInterface
 
     public function getData()
     {
-        return $this->model->paginate(1);
+        return $this->model->paginate(2);
     }
 
 

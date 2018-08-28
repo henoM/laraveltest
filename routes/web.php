@@ -36,7 +36,6 @@ Route::get('/home',function (){
 })->name('login');
 
 Route::middleware('admin')->group(function () {
-
     Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
 
         Route::get('/dashboard','AdminController@dashboard')->name('admin.dashboard');
@@ -55,7 +54,15 @@ Route::middleware('admin')->group(function () {
 Route::middleware('user')->group(function () {
     Route::group(['prefix' => 'user','namespace' => 'User'], function () {
         Route::get('/dashboard','UserController@dashboard')->name('user.dashboard');
-
+        Route::group(['prefix' => 'homes','namespace' => 'Home'], function () {
+            Route::get('/','HomeController@index')->name('user.home.homes');
+            Route::get('/create','HomeController@create')->name('user.home.create');
+        });
+        Route::group(['prefix' => 'family','namespace' => 'Family'], function () {
+            Route::get('/','FamilyController@index')->name('user.family.peoples');
+            Route::get('/create','FamilyController@create')->name('user.people.create');
+            Route::post('/store','FamilyController@store')->name('user.peoaple.store');
+        });
     });
 });
 

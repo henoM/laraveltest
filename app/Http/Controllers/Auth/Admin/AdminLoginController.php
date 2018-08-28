@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth\Admin;
 
+use App\Http\Requests\Admin\AdminLoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -39,10 +40,13 @@ class AdminLoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
+    public function login(AdminLoginRequest $request)
     {
 
-        $this->validateLogin($request);
+//        $this->validateLogin($request);
+//        $request = $request->except(['_token']);
+
+//        dd($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -56,9 +60,11 @@ class AdminLoginController extends Controller
         if ($this->guard()->validate($this->credentials($request))) {
             $user = $this->guard()->getLastAttempted();
             // Make sure the user is active
-            if ($user->roles()->where('name', config('auth.roles.admin_role'))->exists() && $this->attemptLogin($request)) {
-                // Send the normal successful login response
+            if ($user->roles()->where('id', config('auth.roles.admin_role_id'))
+                && $this->attemptLogin($request)) {
+
                 return $this->sendLoginResponse($request);
+                // Send the normal successful login response
             }
             else {
                 return redirect()

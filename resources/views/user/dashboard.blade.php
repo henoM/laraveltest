@@ -1,7 +1,8 @@
-@extends('layouts.app')
+@extends('user.layouts.app')
+@section('styles')
 
+@endsection
 @section('content')
-    <div class="container">
-      usetrr dashboaqrd
-    </div>
+
+
 @endsection

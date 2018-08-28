@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Contracts\Admin\User\UserInterface;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\Admin\User\UserUpdateRequest;
 use App\Http\Controllers\Controller;
 use Auth;
 
@@ -18,8 +18,6 @@ class UserController extends Controller
     protected $userRepo;
 
 
-
-
     public function __construct(UserInterface $userRepo)
     {
         $this->userRepo = $userRepo;
@@ -32,6 +30,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userRepo->getData();
+
         return view('admin.users.users', ['users' => $users]);
 
     }
@@ -55,7 +54,7 @@ class UserController extends Controller
     public function getUser($id)
     {
         $user = $this->userRepo->getById($id);
-        return view('admin.partials._update',['user'=>$user]);
+        return view('admin.users._update',['user'=>$user]);
     }
 
     /**
@@ -65,6 +64,6 @@ class UserController extends Controller
     public function delete($id)
     {
         $this->userRepo->delete($id);
-        return    redirect()->back();
+        return  redirect()->back();
     }
 }
