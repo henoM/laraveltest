@@ -21,7 +21,7 @@ Auth::routes();
 Route::get('/home', 'Home\HomeController@index')->name('home');
 Route::get('/admin/login', 'Admin\AdminController@index')->name('admin');
 Route::post('/admin/login', 'Auth\Admin\AdminLoginController@login')->name('admin.login');
-Route::post('/home','Auth\User\UserLoginController@login')->name('user.login');
+Route::post('/home','Home\HomeController@login')->name('user.login');
 Route::post('/register','Auth\User\UserRegisterController@register')->name('user.register');
 Route::get('/activate/{token}','Auth\User\UserRegisterController@activateUser')->name('activate.user');
 

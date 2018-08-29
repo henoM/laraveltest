@@ -1,59 +1,39 @@
 @extends('user.layouts.app')
 @section('content')
-
-    <div class="breadcrumbs">
-        <div class="col-sm-4">
-            <div class="page-header float-left">
-                <div class="page-title">
-                    <h1>Dashboard</h1>
-                </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <strong>Homes</strong> Elements
             </div>
-        </div>
-        <div class="col-sm-8">
-            <div class="page-header float-right">
-                <div class="page-title">
-                    <ol class="breadcrumb text-right">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Table</a></li>
-                        <li class="active">Data table</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="content mt-3">
-        <div class="animated fadeIn">
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Add Home</strong>
-                        </div>
-                        <div class="form-inline">
-                            {!! Form::open(['route' => 'user.home.store','enctype'=>'multipart/form-data']) !!}
-
-                            {!!  Form::label('name', 'Name')!!}
-                            {!!  Form::text('name', null, ['class' => 'form-control'])!!}
-                            <br><br>
-                            {!!  Form::label('image', 'Image Name')!!}
-                            {!!  Form::file('file', null, ['class' => 'imgInp form-control','id'=>'imgInp'])!!}
-                            <br><br>
-
-                            {!! Form::select('people', $select )!!}
-                            <br><br>
-                            {!!  Form::submit('Add', ['class' => 'btn btn-primary'])!!}
-
-                            {!! Form::close() !!}
-
-                            <div class="img-preview"></div>
+            <div class="card-body card-block">
+                {{--<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">--}}
+                {!! Form::open(['route' => 'user.home.store','enctype'=>'multipart/form-data','class' => 'form-horizonta']) !!}
+                    <div class="row form-group">
+                        <div class="col col-md-3">{!!  Form::label('name', 'Name',['class' => 'form-control-label'])!!}</div>
+                        <div class="col-12 col-md-9">
+                            {!!  Form::text('name', null, ['class' => 'form-control'])!!}<small class="form-text text-muted">This is a help text</small>
                         </div>
                     </div>
-                </div>
-
-
+                    <div class="row form-group">
+                        <div class="col col-md-3">{!!  Form::label('name', 'Image',['class' => 'form-control-label'])!!}</div>
+                        <div class="col-12 col-md-9">{!!  Form::file('file', null, ['class' => 'imgInp form-control','id'=>'imgInp'])!!}</div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3">{!!  Form::label('name', 'Peoples',['class' => 'form-control-label'])!!}</div>
+                        <div class="col-12 col-md-9">
+                            {!! Form::select('people', $select ,array('class' => 'form-control'))!!}
+                            {{--<select name="selectSm" id="SelectLm" class="form-control-sm form-control">--}}
+                                {{--<option value="0">Please select</option>--}}
+                                {{--<option value="1">Option #1</option>--}}
+                                {{--<option value="2">Option #2</option>--}}
+                                {{--<option value="3">Option #3</option>--}}
+                                {{--<option value="4">Option #4</option>--}}
+                                {{--<option value="5">Option #5</option>--}}
+                            {{--</select>--}}
+                        </div>
+                    </div>
+                <div class="form-actions form-group"> {!!  Form::submit('Add', ['class' => 'btn btn-primary'])!!}</div>
+                {!! Form::close() !!}
             </div>
-        </div>
     </div>
 @endsection

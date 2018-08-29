@@ -1,30 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>admin</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ asset('css/util.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
-</head>
-<body>
-<a href="{{ route('login') }}">Login</a>
-<a href="{{ route('register') }}">Register</a>
+@extends('layouts.app')
 
-<div class="limiter">
+@section('content')
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content" src="images/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="login-form">
+                    {!! Form::open(array('route' => 'user.register')) !!}
+                        <div class="form-group">
+                            {!!  Form::label('User Name')!!}
+                            {!!  Form::text('name', null, ['class' => 'form-control'])!!}
+                            @if ($errors->has('name'))
+                                <span class="text-danger">
+			<strong>{{ $errors->first('name') }}</strong>
+		</span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            {!!  Form::label('Email')!!}
+                            {!!  Form::text('email', null, ['class' => 'form-control'])!!}
+                            @if ($errors->has('name'))
+                                <span class="text-danger">
+			<strong>{{ $errors->first('name') }}</strong>
+		</span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            {!!  Form::label('Password')!!}
+                            {!!  Form::password('password',['class' => 'form-control'])!!}
+                            @if ($errors->has('name'))
+                                <span class="text-danger">
+			<strong>{{ $errors->first('name') }}</strong>
+		</span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            {!!  Form::label('Repeat Password')!!}
+                            {!!  Form::password('password_confirmation',['class' => 'form-control'])!!}
+                        </div>
+                        {!!  Form::submit('Register',['class' => 'btn btn-primary btn-flat m-b-30 m-t-30'])!!}
+                        {{--<button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>--}}
 
-    <div class="container-login100">
-        <div class="wrap-login100">
+                    {!! Form::close() !!}
 
-            {!! Form::open(array('route' => 'user.register')) !!}
-
-            @include('user.partials._form')
-
-            {!! Form::close() !!}
+                </div>
+                <div class="register-link m-t-15 text-center">
+                    <p> <a href="{{ route('login') }}">Login  Page</a></p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div id="dropDownSelect1"></div>
-<script src="{{ asset('js/login.js') }}"></script>
-</body>
-</html>
+@endsection
