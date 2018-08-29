@@ -1,6 +1,5 @@
 @extends('user.layouts.app')
 @section('content')
-
     <div class="breadcrumbs">
         <div class="col-sm-4">
             <div class="page-header float-left">
@@ -28,11 +27,12 @@
 
                 <div class="col-md-12">
                     <div class="card">
-                                <div class="card-header">
-                                    <strong class="card-title">Homes</strong>
-                                </div>
+                        <div class="card-header">
+                            <strong class="card-title">Home</strong>
+                            <img src="" alt="">
+                        </div>
                         <div class="form-inline">
-                            <a href="{{route('user.home.create')}}" class="btn btn-primary">Add Home</a>
+                            <a href="{{route('user.people.create')}}" class="btn btn-primary">Add People</a>
                         </div>
 
 
@@ -42,23 +42,13 @@
 
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Count</th>
-                                    <th scope="col">actions</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
 
                                 </thead>
                                 <tbody>
-                                @foreach($homes as $home)
-                                    <tr>
-                                        <td>{{ $home->name }} </td>
-                                        <td>{{ $home->Peoples()->count() }}</td>
-                                        <td>
-                                            <a href="{{route('user.home.view', $home->id)}}" class="btn btn-success btn-xs">View</a>
-                                            <a href="{{route('user.home.update', $home->id)}}" class="btn btn-primary btn-xs">Update</a>
-                                            <a href="{{route('user.home.delete', $home->id)}}" class="btn btn-danger btn-xs">Delete</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
 
                                 </tbody>
                             </table>

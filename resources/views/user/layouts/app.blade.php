@@ -31,7 +31,28 @@
 
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="{{ asset('admin/assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
 <script src="{{ asset('admin/assets/js/plugins.js') }}"></script>
 <script src="{{ asset('admin/assets/js/main.js') }}"></script>
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $( "input[name*='file']" ).change(function() {
+        $('.img-preview').empty();
+        $('.img-preview').append('<img id="blah" src="#"  style="width: 120px;height:120px;"/>')
+        readURL(this);
+    });
+</script>
 </body>

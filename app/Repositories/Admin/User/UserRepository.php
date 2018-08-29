@@ -34,16 +34,30 @@ class UserRepository implements UserInterface
     }
 
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getById($id)
     {
         return $this->model->where('id', $id)->first();
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function delete($id)
     {
         return $this->model->where('id', $id)->delete();
     }
 
-    public function update($request,$id)
+    /**
+     * @param $request
+     * @param $id
+     * @return mixed
+     */
+    public function update($request, $id)
     {
 
         $data = [
@@ -51,6 +65,11 @@ class UserRepository implements UserInterface
         ];
         return $this->model->where('id', $id)->update($data);
     }
+
+    /**
+     * @param $token
+     * @return mixed
+     */
     public function activate($token)
     {
         $data = [

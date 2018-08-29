@@ -11,11 +11,29 @@ namespace App\Contracts\User\Family;
 
 interface FamilyInterface
 {
+
+    /**
+     * @return mixed
+     */
+    public function getPeoples();
+
     /**
      * Store
      * @param $data
      * @return mixed
      */
-        public function store($data);
+    public function store($data);
+
+    /**
+     * @return mixed
+     */
+    public function create();
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public  function  delete($id);
+
 
 }

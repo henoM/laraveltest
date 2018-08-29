@@ -51,17 +51,27 @@ Route::middleware('admin')->group(function () {
 
     });
 });
+
 Route::middleware('user')->group(function () {
     Route::group(['prefix' => 'user','namespace' => 'User'], function () {
         Route::get('/dashboard','UserController@dashboard')->name('user.dashboard');
         Route::group(['prefix' => 'homes','namespace' => 'Home'], function () {
             Route::get('/','HomeController@index')->name('user.home.homes');
             Route::get('/create','HomeController@create')->name('user.home.create');
+            Route::post('/store','HomeController@store')->name('user.home.store');
+
+            Route::get('/home/{id}','HomeController@home')->name('user.home.view');
+            Route::get('/update/{id}','HomeController@update')->name('user.home.update');
+            Route::get('/delete/{id}','HomeController@delete')->name('user.home.delete');
         });
         Route::group(['prefix' => 'family','namespace' => 'Family'], function () {
             Route::get('/','FamilyController@index')->name('user.family.peoples');
             Route::get('/create','FamilyController@create')->name('user.people.create');
             Route::post('/store','FamilyController@store')->name('user.peoaple.store');
+
+            Route::get('/people/{id}','FamilyController@people')->name('family.people.view');
+            Route::get('/update/{id}','FamilyController@update')->name('family.people.update');
+            Route::get('/delete/{id}','FamilyController@delete')->name('family.people.delete');
         });
     });
 });

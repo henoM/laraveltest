@@ -14,8 +14,11 @@ class People extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'Last_name', 'age','gender'
+        'first_name', 'Last_name', 'age','gender','user_id'
     ];
 
-
+    public function Homes()
+    {
+        return $this->belongsToMany('App\Models\User\Home','home_people');
+    }
 }

@@ -15,15 +15,14 @@ class Home extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'count'
+        'name', 'path','user_id'
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    protected $hidden = [
-        //
-    ];
+    public function Peoples()
+    {
+        return $this->belongsToMany('App\Models\User\People','home_people');
+    }
 }

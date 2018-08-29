@@ -44,13 +44,23 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Age</th>
                                     <th scope="col">Gender</th>
-                                    <th scope="col">crud</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
 
                                 </thead>
                                 <tbody>
-
-
+                                    @foreach($peoples as $people)
+                                        <tr>
+                                            <td>{{ $people->first_name }} {{ $people->last_name }}</td>
+                                            <td>{{ $people->age }}</td>
+                                            <td>{{ $people->gender }}</td>
+                                            <td>
+                                                <a href="{{route('family.people.view', $people->id)}}" class="btn btn-success btn-xs">View</a>
+                                                <a href="{{route('family.people.update', $people->id)}}" class="btn btn-primary btn-xs">Update</a>
+                                                <a href="{{route('family.people.delete', $people->id)}}" class="btn btn-danger btn-xs">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

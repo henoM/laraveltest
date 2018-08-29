@@ -11,12 +11,28 @@ namespace App\Contracts\User\Home;
 
 interface HomeInterface
 {
+
+    /**
+     * @return mixed
+     */
+    public function gethomes();
+
     /**
      * Store
      * @param $data
      * @return mixed
      */
-    public function addHome($data);
+    public function store($data);
 
 
+    /**
+     * @return mixed
+     */
+    public function create();
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id);
 }

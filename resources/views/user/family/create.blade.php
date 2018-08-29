@@ -40,14 +40,18 @@
                             {!!  Form::label('lastName', 'Last Name')!!}
                             {!!  Form::text('Last_name', null, ['class' => 'form-control'])!!}
                             <br><br>
-                            {!!  Form::label('age', 'Agee')!!}
+                            {!!  Form::label('age', 'Age')!!}
                             {!!  Form::text('age', null, ['class' => 'form-control'])!!}
                             <br><br>
-                            {!!  Form::label('gender', 'Gender')!!}
-                            {!!  Form::text('gender', null, ['class' => 'form-control'])!!}
+                            {!! Form::select('home', $select )!!}
                             <br><br>
-                            {{--{!! Form::select('size', ['hemo' => 'Home',])!!}--}}
-                            {{--<br><br>--}}
+                            {!!  Form::label('gender', 'Man')!!}
+                            {!!  Form::radio('gender', 'man', true);!!}
+                            {!!  Form::label('gender', 'Female')!!}
+                            {!!  Form::radio('gender', 'female', true);!!}
+
+
+                            <br><br>
                             {!!  Form::submit('Add', ['class' => 'btn btn-primary'])!!}
 
                             {!! Form::close() !!}

@@ -32,18 +32,22 @@
                             <strong class="card-title">Add Home</strong>
                         </div>
                         <div class="form-inline">
-                            {!! Form::open(array('route' => 'user.register')) !!}
+                            {!! Form::open(['route' => 'user.home.store','enctype'=>'multipart/form-data']) !!}
 
+                            {!!  Form::label('name', 'Name')!!}
                             {!!  Form::text('name', null, ['class' => 'form-control'])!!}
                             <br><br>
-                            {!!  Form::file('name', null, ['class' => 'form-control'])!!}
+                            {!!  Form::label('image', 'Image Name')!!}
+                            {!!  Form::file('file', null, ['class' => 'imgInp form-control','id'=>'imgInp'])!!}
                             <br><br>
-                            {!! Form::select('size', ['family' => 'Family',])!!}
+
+                            {!! Form::select('people', $select )!!}
                             <br><br>
                             {!!  Form::submit('Add', ['class' => 'btn btn-primary'])!!}
 
                             {!! Form::close() !!}
 
+                            <div class="img-preview"></div>
                         </div>
                     </div>
                 </div>
