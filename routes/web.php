@@ -56,7 +56,7 @@ Route::middleware('admin')->group(function () {
         Route::group(['prefix' => 'user','namespace' => 'User'], function () {
             Route::get('/users','UserController@index')->name('admin.user.users');
             Route::get('/update/{id}','UserController@getUser')->name('admin.user.update');
-            Route::put('/edit/{id}','UserController@edit')->name('admin.user.edit');
+            Route::post('/edit/{id}','UserController@edit')->name('admin.user.edit');
             Route::get('/delete/{id}','UserController@delete')->name('admin.user.delete');
 
         });

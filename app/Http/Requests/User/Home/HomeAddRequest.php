@@ -26,7 +26,8 @@ class HomeAddRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'file' => 'image',
-            'people' => 'array'
+            'people' => 'array',
+            'address' => 'required|string|max:255'
         ];
     }
 }

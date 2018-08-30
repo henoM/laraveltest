@@ -39,6 +39,8 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Is Active</th>
                                 <th scope="col">Emails</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Actions</th>
                                 </tr>
 
                                 </thead>
@@ -50,6 +52,7 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->is_active }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>{{ $user->address }}</td>
                                         <td>
                                         <a href="{{route('admin.user.update', $user->id)}}" class="btn btn-primary btn-xs">Update</a>
                                         <a href="{{route('admin.user.delete', $user->id)}}" class="btn btn-danger btn-xs">Delete</a>

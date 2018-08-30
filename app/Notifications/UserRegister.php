@@ -42,6 +42,7 @@ class UserRegister extends Notification
      */
     public function toMail($notifiable)
     {
+
         $user = $this->user;
         return (new MailMessage)
                     ->from('hmartirosyan773013@gmail.com')

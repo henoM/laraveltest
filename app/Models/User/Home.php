@@ -13,7 +13,7 @@ class Home extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'path','user_id'
+        'name', 'path','user_id','address'
     ];
 
     /**

@@ -55,6 +55,7 @@ class UserLoginController extends Controller
         if ($this->guard()->validate($this->credentials($request))) {
             $user = $this->guard()->getLastAttempted();
             // Make sure the user is active
+
             if ($user->is_active && $this->attemptLogin($request)) {
 
 
@@ -64,6 +65,7 @@ class UserLoginController extends Controller
                     return $this->sendLoginResponse($request);
                 }
                 else {
+
                     return redirect()
                         ->back()
                         ->withInput($request->only($this->username(), 'remember'))

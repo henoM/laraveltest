@@ -61,7 +61,8 @@ class UserRepository implements UserInterface
     {
 
         $data = [
-            'name'=>$request->name
+            'name'=>$request->name,
+            'address'=>$request->address
         ];
         return $this->model->where('id', $id)->update($data);
     }

@@ -51,7 +51,7 @@
                         @foreach($homes as $home)
                             <tr>
                                 <td>{{ $home->name }} </td>
-                                <td>chka</td>
+                                <td>{{ $home->address }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -69,6 +69,7 @@
                                 <tr>
                                     <th scope="col">Name</th>
                                     <th scope="col">Count</th>
+                                    <th scope="col">Address</th>
                                     <th scope="col">actions</th>
                                 </tr>
 
@@ -78,6 +79,7 @@
                                     <tr>
                                         <td>{{ $home->name }} </td>
                                         <td>{{ $home->Peoples()->count() }}</td>
+                                        <td>{{ $home->address }}</td>
                                         <td>
                                             <a href="{{route('user.home.view', $home->id)}}" class="btn btn-success btn-xs">View</a>
                                             <a href="{{route('user.home.update', $home->id)}}" class="btn btn-primary btn-xs">Update</a>

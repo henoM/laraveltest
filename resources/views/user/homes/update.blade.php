@@ -19,6 +19,17 @@
                     </div>
                 </div>
                 <div class="row form-group">
+                    <div class="col col-md-3">{!!  Form::label('address', 'Address',['class' => 'form-control-label'])!!}</div>
+                    <div class="col-12 col-md-9">
+                        {!!  Form::text('address',$home->address, ['class' => 'form-control'])!!}
+                        @if ($errors->has('address'))
+                            <span class="text-danger">
+		                    	<strong>{{ $errors->first('address') }}</strong>
+		                    </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row form-group">
 
                     <div class="col col-md-3">{!!  Form::label('name', 'Image',['class' => 'form-control-label'])!!}</div>
                     <div class="col-12 col-md-9">

@@ -31,6 +31,15 @@
                         @endif
                     </div>
                     <div class="form-group">
+                        {!!  Form::label('Address')!!}
+                        {!!  Form::text('address', null, ['class' => 'form-control'])!!}
+                        @if ($errors->has('address'))
+                            <span class="text-danger">
+		                    	<strong>{{ $errors->first('address') }}</strong>
+		                    </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
                         {!!  Form::label('Email')!!}
                         {!!  Form::text('email', null, ['class' => 'form-control'])!!}
                         @if ($errors->has('name'))

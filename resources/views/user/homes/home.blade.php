@@ -14,7 +14,7 @@
               <div class="col-md-6 card-body">
                   <div class="mx-auto d-block">
                       <h5 class="text-sm-center mt-2 mb-1">{{$home->name}}</h5>
-                      <div class="location text-sm-center"><i class="fa fa-map-marker"></i> California, United States</div>
+                      <div class="location text-sm-center"><i class="fa fa-map-marker"></i> {{$home->address}}</div>
                   </div>
               </div>
             </div>
