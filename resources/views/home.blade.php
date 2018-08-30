@@ -9,6 +9,14 @@
                         <img class="align-content" src="images/logo.png" alt="">
                     </a>
                 </div>
+                @if(session('warning'))
+                    <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+                        {{session('warning')}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="login-form">
                     {!! Form::open(array('route' => 'user.login')) !!}
                         <div class="form-group">

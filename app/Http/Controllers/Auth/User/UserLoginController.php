@@ -56,7 +56,10 @@ class UserLoginController extends Controller
             $user = $this->guard()->getLastAttempted();
             // Make sure the user is active
             if ($user->is_active && $this->attemptLogin($request)) {
-                if ($user->roles()->where('name', config('auth.roles.user_role'))->exists() && $this->attemptLogin($request)) {
+
+
+
+                if ($user->roles()->where('id', config('auth.roles.user_role_id'))->exists() && $this->attemptLogin($request)) {
                     // Send the normal successful login response
                     return $this->sendLoginResponse($request);
                 }

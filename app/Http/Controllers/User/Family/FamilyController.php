@@ -3,26 +3,31 @@
 namespace App\Http\Controllers\User\Family;
 
 
-use App\Contracts\User\Family\FamilyInterface;
+use App\Contracts\User\Family\PeopleInterface;
+use App\Contracts\User\Home\HomeInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Family\FamilyAddRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 class FamilyController extends Controller
 {
 
-    protected $familiRepo;
+    protected $peopleRepo;
+    protected $homeRepo;
 
-    public function __construct(FamilyInterface $familiRepo)
+    public function __construct(PeopleInterface $peopleRepo, HomeInterface  $homeRepo)
     {
-        $this->familyRepo  = $familiRepo;
+        $this->peopleRepo  = $peopleRepo;
+        $this->homeRepo  = $homeRepo;
     }
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $peoples = $this->familyRepo->getPeoples();
+        $userId = Auth::user()->id;
+        $peoples = $this->peopleRepo->getPeoples($userId);
         return view('user.family.family',['peoples' => $peoples]);
     }
 
@@ -31,10 +36,11 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        $peoples = $this->familyRepo->create();
+        $userId = Auth::user()->id;
+        $homes = $this->homeRepo->gethomes($userId);
         $select = [];
-        foreach($peoples as $people){
-            $select[$people->id] = $people->name;
+        foreach($homes as $home){
+            $select[$home->id] = $home->name;
         }
         return view('user.family.create',compact('select'));
     }
@@ -45,10 +51,11 @@ class FamilyController extends Controller
      */
     public function store(FamilyAddRequest $request)
     {
+        $userId =Auth::user()->id;
         $home = $request->home;
-        $people =  $this->familyRepo->store($request->all());
-        $people->homes()->sync([$home]);
-        return redirect()->back();
+        $people =  $this->peopleRepo->store($request->all(),$userId);
+        $people->homes()->sync($home);;
+        return redirect()->to('user/family')->with('create', 'New People created');
     }
 
     /**
@@ -57,27 +64,40 @@ class FamilyController extends Controller
      */
     public function people($id)
     {
-//        dd($id);
-        return view('user.family.people');
+        $people  = $this->peopleRepo->people($id);
+        $homes = $people->Homes;
+        return view('user.family.people',compact('people','homes'));
     }
 
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+
     public function update($id)
     {
-//        dd($id);
-        return view('user.family.update');
-    }
+        $userId = Auth::user()->id;
+        $homes = $this->homeRepo->getHomes($userId);
+        foreach($homes as $home){
 
+            $select[$home->id] = $home->name;
+        }
+        $people = $this->peopleRepo->getById($id);
+        return view('user.family.update',compact('select','people'));
+    }
+    public function edit($id,FamilyAddRequest $request)
+    {
+        $this->peopleRepo->edit($id,$request);
+        return  redirect()->to('user/family')->with('update', 'People update');
+
+    }
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function delete($id)
     {
-       $this->familyRepo->delete($id);
-       return redirect()->back();
+       $this->peopleRepo->delete($id);
+       return redirect()->to('user/family')->with('delete', 'People deleted');
     }
 }

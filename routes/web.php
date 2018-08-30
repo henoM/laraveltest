@@ -11,29 +11,41 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+
 
 Auth::routes();
 
 
-Route::get('/home', 'Home\HomeController@index')->name('home');
-Route::get('/admin/login', 'Admin\AdminController@index')->name('admin');
-Route::post('/admin/login', 'Auth\Admin\AdminLoginController@login')->name('admin.login');
-Route::post('/home','Home\HomeController@login')->name('user.login');
-Route::post('/register','Auth\User\UserRegisterController@register')->name('user.register');
+
+
+//Route::group(['middleware' => 'checkAdmin'], function () {
+    Route::post('/login','Auth\User\UserLoginController@login')->name('user.login');
+//});
+//Route::group(['middleware' => 'CheckUser'], function () {
+    Route::post('/admin/login', 'Auth\Admin\AdminLoginController@login')->name('admin.login');
+//});
+
 Route::get('/activate/{token}','Auth\User\UserRegisterController@activateUser')->name('activate.user');
-
-Route::get('/register',function (){
-    return view('user/register');
-})->name('register');
-
-
-
-Route::get('/home',function (){
+Route::get('/', function () {
     return view('home');
-})->name('login');
+});
+Route::group(['middleware' => 'checkSession'], function () {
+
+    Route::get('/home', 'Home\HomeController@index')->name('home');
+    Route::get('/admin/login', 'Admin\AdminController@index')->name('admin');
+
+    Route::get('/register',function (){
+        return view('user/register');
+    })->name('register');
+    Route::get('/home',function (){
+        return view('home');
+    })->name('login');
+});
+
+Route::post('/register','Auth\User\UserRegisterController@register')->name('user.register');
+
+
+
 
 Route::middleware('admin')->group(function () {
     Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
@@ -62,6 +74,7 @@ Route::middleware('user')->group(function () {
 
             Route::get('/home/{id}','HomeController@home')->name('user.home.view');
             Route::get('/update/{id}','HomeController@update')->name('user.home.update');
+            Route::post('/edit/{id}','HomeController@edit')->name('user.home.edit');
             Route::get('/delete/{id}','HomeController@delete')->name('user.home.delete');
         });
         Route::group(['prefix' => 'family','namespace' => 'Family'], function () {
@@ -71,7 +84,9 @@ Route::middleware('user')->group(function () {
 
             Route::get('/people/{id}','FamilyController@people')->name('family.people.view');
             Route::get('/update/{id}','FamilyController@update')->name('family.people.update');
+            Route::post('/edit/{id}','FamilyController@edit')->name('family.people.edit');
             Route::get('/delete/{id}','FamilyController@delete')->name('family.people.delete');
+
         });
     });
 });

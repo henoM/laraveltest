@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Home extends Model
 {
 
-//    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *

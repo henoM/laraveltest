@@ -1,62 +1,53 @@
 @extends('user.layouts.app')
 @section('content')
-    <div class="breadcrumbs">
-        <div class="col-sm-4">
-            <div class="page-header float-left">
-                <div class="page-title">
-                    <h1>Dashboard</h1>
-                </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <strong>Update Home</strong>
             </div>
-        </div>
-        <div class="col-sm-8">
-            <div class="page-header float-right">
-                <div class="page-title">
-                    <ol class="breadcrumb text-right">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Table</a></li>
-                        <li class="active">Data table</li>
-                    </ol>
+            <div class="card-body card-block"> 
+                {!! Form::model($home, ['route' => ['user.home.edit', $home->id],'enctype'=>'multipart/form-data','class' => 'form-horizonta']) !!}
+                <div class="row form-group">
+                    <div class="col col-md-3">{!!  Form::label('name', 'Name',['class' => 'form-control-label'])!!}</div>
+                    <div class="col-12 col-md-9">
+                        {!!  Form::text('name',$home->name, ['class' => 'form-control'])!!}
+                        @if ($errors->has('name'))
+                            <span class="text-danger">
+		                    	<strong>{{ $errors->first('name') }}</strong>
+		                    </span>
+                        @endif
+                    </div>
                 </div>
+                <div class="row form-group">
+
+                    <div class="col col-md-3">{!!  Form::label('name', 'Image',['class' => 'form-control-label'])!!}</div>
+                    <div class="col-12 col-md-9">
+                        <img src="{{$home->name}}" style="height: 100px;width: 100px;"><br>
+                        {!!  Form::file('file', null, ['class' => 'imgInp form-control','id'=>'imgInp'])!!}<br>
+                        @if ($errors->has('file'))
+                            <span class="text-danger">
+		                    	<strong>{{ $errors->first('file') }}</strong>
+		                    </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">{!!  Form::label('name', 'Peoples',['class' => 'form-control-label'])!!}</div>
+                    <div class="col-12 col-md-9">
+                        {!! Form::select('people', $select ,null,['multiple'=>'multiple','name'=>'people[]','class' => 'form-control-sm form-control'])!!}
+                        @if ($errors->has('people'))
+                            <span class="text-danger">
+		                    	<strong>{{ $errors->first('people') }}</strong>
+		                    </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-actions form-group"> {!!  Form::submit('Update', ['class' => 'btn btn-primary'])!!}</div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
+    <div class="col-lg-6" id="img-preview" >
 
-    <div class="content mt-3">
-        <div class="animated fadeIn">
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Home Updatey</strong>
-                        </div>
-                        <div class="form-inline">
-                            <a href="{{route('user.people.create')}}" class="btn btn-primary">Add People</a>
-                        </div>
-
-
-                        <div class="card-body">
-                            <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                <thead>
-
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Age</th>
-                                    <th scope="col">Gender</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
     </div>
 @endsection

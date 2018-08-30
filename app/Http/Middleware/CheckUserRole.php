@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class User
+class CheckUserRole
 {
     /**
      * Handle an incoming request.
@@ -16,12 +15,12 @@ class User
      */
     public function handle($request, Closure $next)
     {
-
-        if(Auth::user() && Auth::user()->role_id == 2) {
+        if(Auth::user() && Auth::user()->role_id == 1) {
             return $next($request);
+
         } else {
+            Auth::logout();
             return redirect()->back();
         }
     }
-
 }

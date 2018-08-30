@@ -14,7 +14,7 @@ class People extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'Last_name', 'age','gender','user_id'
+        'first_name', 'last_name', 'age','gender','user_id'
     ];
 
     public function Homes()

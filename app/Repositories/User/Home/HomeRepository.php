@@ -8,18 +8,14 @@ namespace App\Repositories\User\Home;
 
 use App\Contracts\User\Home\HomeInterface;
 use App\Models\User\Home;
-use App\Models\User\People;
-use Illuminate\Support\Facades\Auth;
 
 class HomeRepository implements HomeInterface
 {
     protected $model;
-    protected $peopleModel;
 
-    public function __construct(Home $model,People $peopleModel)
+    public function __construct(Home $model)
     {
         $this->model = $model;
-        $this->peopleModel = $peopleModel;
     }
 
     /**
@@ -31,10 +27,9 @@ class HomeRepository implements HomeInterface
     /**
      * @return mixed
      */
-    public function getHomes()
+    public function getHomes($userId)
     {
-        $id = Auth::user()->id;
-        return $this->model->with('Peoples')->select()->where('user_id',$id)->get();
+        return $this->model->with('Peoples')->select()->where('user_id',$userId)->get();
     }
 
     /**
@@ -47,13 +42,16 @@ class HomeRepository implements HomeInterface
         return $this->model->create($data);
     }
 
+
     /**
-     * @return mixed
+     * @param $id
+     * @return Home|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|null|object
      */
-    public function create(){
-        $id = Auth::user()->id;
-        return $this->peopleModel->select()->where('user_id',$id)->get();
+    public function home($id)
+    {
+        return $this->model->with('Peoples')->where('id',$id)->first();
     }
+
 
     /**
      * @param $id
@@ -62,5 +60,27 @@ class HomeRepository implements HomeInterface
     public function delete($id)
     {
         return $this->model->where('id', $id)->delete();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
+    {
+        return $this->model->where('id',$id)->first();
+    }
+
+    /**
+     * @param $id
+     * @param $request
+     * @return mixed
+     */
+    public function update($id, $request)
+    {
+        $data = [
+            'name'=>$request->name
+        ];
+        return $this->model->where('id', $id)->update($data);
     }
 }

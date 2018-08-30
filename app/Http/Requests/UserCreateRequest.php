@@ -41,8 +41,6 @@ class UserCreateRequest extends FormRequest
      */
     protected function getValidatorInstance()
     {
-
-
         $validator = parent::getValidatorInstance();
 
         if (!$validator->fails())

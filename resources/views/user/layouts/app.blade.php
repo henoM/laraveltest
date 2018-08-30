@@ -50,8 +50,8 @@
     }
 
     $( "input[name*='file']" ).change(function() {
-        $('.img-preview').empty();
-        $('.img-preview').append('<img id="blah" src="#"  style="width: 120px;height:120px;"/>')
+        $('#img-preview').empty();
+        $('#img-preview').append('<img id="blah" src="#"  style="width: 100%;height:300px;"/>')
         readURL(this);
     });
 </script>

@@ -55,11 +55,10 @@ class UserRegisterController extends Controller
     {
         try {
             $user = $this->userRepo->store($request->all());
-            $user->roles()->sync([2]);
             $user->notify(new UserRegister($user));
             return redirect()
                             ->back()
-                            ->with('info', 'We sent you a message to the email address');
+                            ->with('info', 'We sent you a message to the email address! please activate account ');
         } catch (\Exception $e) {
             report($e);
         }

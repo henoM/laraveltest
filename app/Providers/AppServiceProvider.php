@@ -38,11 +38,11 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Contracts\User\Family\FamilyInterface',
-            'App\Repositories\User\Family\FamilyRepository'
+            'App\Contracts\User\Family\PeopleInterface',
+            'App\Repositories\User\Family\PeopleRepository'
         );        $this->app->bind(
-            'App\Contracts\User\Family\FamilyInterface',
-            'App\Repositories\User\Family\FamilyRepository'
+            'App\Contracts\User\Family\PeopleInterface',
+            'App\Repositories\User\Family\PeopleRepository'
         );
     }
 }

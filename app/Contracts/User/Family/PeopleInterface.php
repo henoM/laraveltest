@@ -6,36 +6,35 @@
  * Time: 6:55 PM
  */
 
-namespace App\Contracts\User\Home;
+namespace App\Contracts\User\Family;
 
 
-interface HomeInterface
+interface PeopleInterface
 {
 
     /**
      * @return mixed
      */
-    public function gethomes($userId);
+    public function getPeoples($userId);
 
     /**
      * Store
      * @param $data
      * @return mixed
      */
-    public function store($data);
+    public function store($data,$userId);
 
     /**
      * @param $id
      * @return mixed
      */
-    public function delete($id);
+    public  function  delete($id);
 
     /**
      * @param $id
      * @return mixed
      */
-    public function home($id);
-
+    public function people($id);
     /**
      * @param $id
      * @return mixed
@@ -44,9 +43,8 @@ interface HomeInterface
 
     /**
      * @param $id
-     * @param Request $request
+     * @param $request
      * @return mixed
      */
-    public function update($id,$request);
-
+    public function edit($id, $request);
 }

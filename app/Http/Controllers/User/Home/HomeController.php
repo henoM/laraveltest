@@ -2,33 +2,38 @@
 
 namespace App\Http\Controllers\User\Home;
 
+use App\Contracts\User\Family\PeopleInterface;
 use App\Contracts\User\Home\FileInterface;
 use App\Contracts\User\Home\HomeInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Home\HomeAddRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
 
     protected $homeRepo;
     protected $fileRepo;
+    protected $peopleRepo;
     /**
      * HomeController constructor.
      * @param HomeInterface $homeRepo
      */
 
-    public function __construct(HomeInterface $homeRepo,FileInterface $fileRepo){
+    public function __construct(HomeInterface $homeRepo, FileInterface $fileRepo, PeopleInterface $peopleRepo){
+
         $this->homeRepo = $homeRepo;
         $this->fileRepo = $fileRepo;
+        $this->peopleRepo = $peopleRepo;
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $homes = $this->homeRepo->getHomes();
+        $userId = Auth::user()->id;
+        $homes = $this->homeRepo->getHomes($userId);
         return view('user.homes.homes',['homes' => $homes]);
     }
 
@@ -37,11 +42,11 @@ class HomeController extends Controller
      */
     public function create()
     {
-
-        $homes = $this->homeRepo->create();
+        $userId = Auth::user()->id;
+        $peoples = $this->peopleRepo->getPeoples($userId);
         $select = [];
-        foreach($homes as $home){
-            $select[$home->id] = $home->first_name.' '.$home->last_name;
+        foreach($peoples as $people){
+            $select[$people->id] = $people->first_name.' '.$people->last_name;
         }
 
         return view('user.homes.create',compact('select'));
@@ -60,8 +65,8 @@ class HomeController extends Controller
         $data['path'] = $path;
         $data['user_id'] = Auth::user()->id;
         $home = $this->homeRepo->store($data);
-        $home->Peoples()->sync([$people]);
-        return redirect()->back();
+        $home->Peoples()->sync($people);
+        return redirect()->to('user/homes')->with('create', 'New home created');
     }
 
     /**
@@ -70,8 +75,9 @@ class HomeController extends Controller
      */
     public function home($id)
     {
-//        dd($id);
-        return view('user.homes.home');
+       $home  = $this->homeRepo->home($id);
+       $peoples = $home->Peoples;
+        return view('user.homes.home', compact('home','peoples'));
     }
 
     /**
@@ -80,8 +86,27 @@ class HomeController extends Controller
      */
     public function update($id)
     {
-//        dd($id);
-        return view('user.homes.update');
+        $userId = Auth::user()->id;
+        $peoples = $this->peopleRepo->getPeoples($userId);
+        foreach($peoples as $people){
+            $select[$people->id] = $people->first_name.' '.$people->last_name;
+        }
+        $home = $this->homeRepo->getById($id);
+        return view('user.homes.update',compact('select','home'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function edit($id, HomeAddRequest $request)
+    {
+        $people = $request->people;
+        $this->homeRepo->update($id,$request);
+        $home = $this->homeRepo->home($id);
+        $home->Peoples()->sync($people);
+        return redirect()->to('user/homes')->with('update', 'Homes updateed');
     }
 
     /**
@@ -91,6 +116,6 @@ class HomeController extends Controller
     public function delete($id)
     {
         $this->homeRepo->delete($id);
-        return redirect()->back();
+        return redirect()->to('user/homes')->with('delete', 'Homes deleted');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAdminRole;
+use App\Http\Middleware\CheckAuthForAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -58,5 +60,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' =>  \App\Http\Middleware\Admin::class,
         'user' =>  \App\Http\Middleware\User::class,
+
+        'checkSession' => CheckAuthForAdmin::class,
+        'checkAdmin' => CheckAdminRole::class,
+        'CheckUser' => CheckUserRole::class,
     ];
 }

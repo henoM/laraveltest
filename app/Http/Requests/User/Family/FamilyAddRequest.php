@@ -27,9 +27,8 @@ class FamilyAddRequest extends FormRequest
     {
         return [
             'first_name' => 'required|string|max:255',
-            'Last_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'age' => 'required|string|max:255',
-            'gender' => 'required|string|max:255'
         ];
     }
 }

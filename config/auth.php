@@ -104,7 +104,8 @@ return [
     'roles' => [
       'user_role' => env('USER_ROLE'),
       'admin_role' => env('ADMIN_ROLE'),
-      'admin_role_id' => '1',
+      'admin_role_id' => 1,
+      'user_role_id' => 2,
     ],
 
 ];
