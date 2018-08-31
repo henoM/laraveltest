@@ -7,7 +7,6 @@ namespace App\Repositories\User\Home;
 
 
 use App\Contracts\User\Home\FileInterface;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FileRepository implements FileInterface
@@ -21,15 +20,9 @@ class FileRepository implements FileInterface
     /**
      * @return mixed
      */
-    public function upload($file)
+    public function upload($file,$id)
     {
-        return Storage::disk('public')->putFile('homes/home'.Auth::user()->id, $file);
+        return Storage::disk('public')->putFile('homes/home'.$id, $file);
     }
-
-    /**
-     * Store User
-     * @param $data
-     * @return mixed|void
-     */
 
 }

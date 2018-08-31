@@ -53,17 +53,16 @@ class UserRegisterController extends Controller
      */
     public function register(UserCreateRequest $request)
     {
-//        try {
+        try {
             $user = $this->userRepo->store($request->all());
 
             $user->notify(new UserRegister($user));
-            dd(1123);
             return redirect()
                             ->back()
                             ->with('info', 'We sent you a message to the email address! please activate account ');
-//        } catch (\Exception $e) {
-//            report($e);
-//        }
+        } catch (\Exception $e) {
+            report($e);
+        }
     }
 
     /**

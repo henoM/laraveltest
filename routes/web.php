@@ -14,17 +14,8 @@
 
 
 Auth::routes();
-
-
-
-
-//Route::group(['middleware' => 'checkAdmin'], function () {
-    Route::post('/login','Auth\User\UserLoginController@login')->name('user.login');
-//});
-//Route::group(['middleware' => 'CheckUser'], function () {
-    Route::post('/admin/login', 'Auth\Admin\AdminLoginController@login')->name('admin.login');
-//});
-
+Route::post('/login','Auth\User\UserLoginController@login')->name('user.login');
+Route::post('/admin/login', 'Auth\Admin\AdminLoginController@login')->name('admin.login');
 Route::get('/activate/{token}','Auth\User\UserRegisterController@activateUser')->name('activate.user');
 Route::get('/', function () {
     return view('home');

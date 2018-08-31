@@ -11,12 +11,6 @@ namespace App\Contracts\User\Home;
 
 interface HomeInterface
 {
-
-    /**
-     * @return mixed
-     */
-    public function gethomes($userId);
-
     /**
      * Store
      * @param $data

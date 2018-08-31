@@ -28,8 +28,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function roles()
     {
         return $this->belongsTo('App\Models\User\Role', 'role_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function peoples()
+    {
+        return $this->hasMany('App\Models\User\People');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function homes()
+    {
+        return $this->hasMany('App\Models\User\Home');
     }
 }

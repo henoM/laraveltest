@@ -32,9 +32,10 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $userId = Auth::user()->id;
-        $homes = $this->homeRepo->getHomes($userId);
+
+        $homes = Auth::user()->homes;
         return view('user.homes.homes',['homes' => $homes]);
+
     }
 
     /**
@@ -42,13 +43,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        $userId = Auth::user()->id;
-        $peoples = $this->peopleRepo->getPeoples($userId);
-        $select = [];
-        foreach($peoples as $people){
-            $select[$people->id] = $people->first_name.' '.$people->last_name;
-        }
-
+        $select = Auth::user()->peoples->pluck('first_name', 'id');
         return view('user.homes.create',compact('select'));
     }
 
@@ -59,13 +54,23 @@ class HomeController extends Controller
     public function store(HomeAddRequest $request)
     {
 
-        $people = $request->people;
-        $data =$request->except('file');
-        $path = $this->fileRepo->upload($request->file);
+
+
+        $id = Auth::user()->id;
+        $path = $this->fileRepo->upload($request->file,$id);
+
+        $data = $request->except('file');
+
         $data['path'] = $path;
+
         $data['user_id'] = Auth::user()->id;
+
         $home = $this->homeRepo->store($data);
+
+        $people = $request->people;
+
         $home->Peoples()->sync($people);
+
         return redirect()->to('user/homes')->with('create', 'New home created');
     }
 
@@ -76,7 +81,9 @@ class HomeController extends Controller
     public function home($id)
     {
        $home  = $this->homeRepo->home($id);
+
        $peoples = $home->Peoples;
+
         return view('user.homes.home', compact('home','peoples'));
     }
 
@@ -86,12 +93,10 @@ class HomeController extends Controller
      */
     public function update($id)
     {
-        $userId = Auth::user()->id;
-        $peoples = $this->peopleRepo->getPeoples($userId);
-        foreach($peoples as $people){
-            $select[$people->id] = $people->first_name.' '.$people->last_name;
-        }
+        $select = Auth::user()->peoples->pluck('first_name', 'id');
+
         $home = $this->homeRepo->getById($id);
+
         return view('user.homes.update',compact('select','home'));
     }
 

@@ -12,17 +12,13 @@ namespace App\Contracts\User\Family;
 interface PeopleInterface
 {
 
-    /**
-     * @return mixed
-     */
-    public function getPeoples($userId);
 
     /**
      * Store
      * @param $data
      * @return mixed
      */
-    public function store($data,$userId);
+    public function store($data);
 
     /**
      * @param $id

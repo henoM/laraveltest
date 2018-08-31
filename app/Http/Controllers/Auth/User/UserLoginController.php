@@ -41,6 +41,31 @@ class UserLoginController extends Controller
 
     public function login(Request $request)
     {
+//        $check = Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 2,'is_active' => 1]);
+//        $checkActive = Auth::attempt(['email' => $request->email, 'password' => $request->password,'is_active' => 1]);
+//        if ($checkActive) {
+//            if ($check) {
+//                $this->sendLoginResponse($request);
+//                return redirect()->to('/user/dashboard');
+//
+//            } else {
+//                $this->incrementLoginAttempts($request);
+//                return redirect()
+//                    ->back()
+//                    ->withInput($request->only($this->username(), 'remember'))
+//                    ->with('warning', '“Invalid Email or Password”');
+//            }
+//        }
+//        else{
+//            $this->incrementLoginAttempts($request);
+//            return redirect()
+//                ->back()
+//                ->withInput($request->only($this->username(), 'remember'))
+//                ->with('warning', '“no active”');
+//        }
+
+
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle

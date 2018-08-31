@@ -19,24 +19,13 @@ class PeopleRepository implements PeopleInterface
 
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getPeoples($userId)
-    {
-        return $this->model->where('user_id',$userId)->get();
-
-    }
-
     /**
      * Store User
      * @param $data
      * @return mixed|void
      */
-    public function store($data,$userId)
+    public function store($data)
     {
-        $data['user_id'] = $userId ;
 
         return  $this->model->create($data);
     }
@@ -46,7 +35,7 @@ class PeopleRepository implements PeopleInterface
      */
     public function people($id)
     {
-       return $this->model->with('Homes')->select()->where('id',$id)->first();
+       return $this->model->findOrFail($id);
     }
     /**
      * @param $id
@@ -64,7 +53,7 @@ class PeopleRepository implements PeopleInterface
      */
     public function getById($id)
     {
-        return $this->model->select()->where('id',$id)->first();
+        return $this->model->where('id',$id)->first();
     }
     /**
      * @param $id
@@ -72,11 +61,11 @@ class PeopleRepository implements PeopleInterface
      * @return mixed
      */
     public function edit($id, $request){
-        $data = [
-            'first_name'=>$request->first_name,
-            'last_name'=>$request->last_name,
-            'age' => $request->age,
-        ];
+//        $data = [
+//            'first_name'=>$request->first_name,
+//            'last_name'=>$request->last_name,
+//            'age' => $request->age,
+//        ];
         return $this->model->where('id', $id)->update($data);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests\User\Family;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class FamilyAddRequest extends FormRequest
+class FamilyUpdateRequest extends FormRequest
 {
 
 

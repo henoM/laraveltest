@@ -7,6 +7,7 @@ use App\Contracts\User\Family\PeopleInterface;
 use App\Contracts\User\Home\HomeInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Family\FamilyAddRequest;
+use App\Http\Requests\User\Family\FamilyUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,8 +27,9 @@ class FamilyController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $userId = Auth::user()->id;
-        $peoples = $this->peopleRepo->getPeoples($userId);
+
+        $peoples = Auth::user()->peoples;
+
         return view('user.family.family',['peoples' => $peoples]);
     }
 
@@ -36,12 +38,8 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        $userId = Auth::user()->id;
-        $homes = $this->homeRepo->gethomes($userId);
-        $select = [];
-        foreach($homes as $home){
-            $select[$home->id] = $home->name;
-        }
+        $select = $peoples = Auth::user()->peoples->pluck('first_name', 'id');
+
         return view('user.family.create',compact('select'));
     }
 
@@ -51,10 +49,14 @@ class FamilyController extends Controller
      */
     public function store(FamilyAddRequest $request)
     {
-        $userId =Auth::user()->id;
         $home = $request->home;
-        $people =  $this->peopleRepo->store($request->all(),$userId);
-        $people->homes()->sync($home);;
+
+        $request = $request->inputs();
+
+        $people =  $this->peopleRepo->store($request);
+
+        $people->homes()->sync($home);
+
         return redirect()->to('user/family')->with('create', 'New People created');
     }
 
@@ -65,8 +67,10 @@ class FamilyController extends Controller
     public function people($id)
     {
         $people  = $this->peopleRepo->people($id);
+
         $homes = $people->Homes;
-        return view('user.family.people',compact('people','homes'));
+
+        return view('user.family.people', compact('people','homes'));
     }
 
     /**
@@ -76,17 +80,17 @@ class FamilyController extends Controller
 
     public function update($id)
     {
-        $userId = Auth::user()->id;
-        $homes = $this->homeRepo->getHomes($userId);
-        foreach($homes as $home){
 
-            $select[$home->id] = $home->name;
-        }
+        $select = $peoples = Auth::user()->peoples->pluck('first_name', 'id');
+
         $people = $this->peopleRepo->getById($id);
+
         return view('user.family.update',compact('select','people'));
+
     }
-    public function edit($id,FamilyAddRequest $request)
+    public function edit($id,FamilyUpdateRequest $request)
     {
+        dd($request);
         $this->peopleRepo->edit($id,$request);
         return  redirect()->to('user/family')->with('update', 'People update');
 

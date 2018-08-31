@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User\Home;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class HomeAddRequest extends FormRequest
 {
@@ -25,9 +26,11 @@ class HomeAddRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'file' => 'image',
+            'file' => 'required|image',
             'people' => 'array',
             'address' => 'required|string|max:255'
         ];
     }
+
+
 }

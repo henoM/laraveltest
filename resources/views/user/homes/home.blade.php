@@ -8,7 +8,7 @@
             <div class="row">
               <div class="col-md-6 card-body">
                   <div class="mx-auto d-block">
-                      <img class="rounded-circle mx-auto d-block" src=" {!! storage_path().'/app/public/'. $home->path !!}" alt="Home image">
+                      <img  src="{{asset(Storage::url($home->path))}}" alt="Home image">
                   </div>
               </div>
               <div class="col-md-6 card-body">

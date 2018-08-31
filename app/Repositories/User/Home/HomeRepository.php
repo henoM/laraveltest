@@ -23,20 +23,6 @@ class HomeRepository implements HomeInterface
      * @param $data
      * @return mixed|void
      */
-
-    /**
-     * @return mixed
-     */
-    public function getHomes($userId)
-    {
-        return $this->model->with('Peoples')->select()->where('user_id',$userId)->get();
-    }
-
-    /**
-     * Store User
-     * @param $data
-     * @return mixed|void
-     */
     public function store($data)
     {
         return $this->model->create($data);
@@ -49,7 +35,7 @@ class HomeRepository implements HomeInterface
      */
     public function home($id)
     {
-        return $this->model->with('Peoples')->where('id',$id)->first();
+       return  $this->model->findOrFail($id);
     }
 
 

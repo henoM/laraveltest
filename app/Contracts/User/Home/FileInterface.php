@@ -15,6 +15,6 @@ interface FileInterface
     /**
      * @return mixed
      */
-    public function upload($data);
+    public function upload($data,$id);
 
 }

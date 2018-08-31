@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\AdminLoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
@@ -43,14 +44,17 @@ class AdminLoginController extends Controller
     public function login(AdminLoginRequest $request)
     {
 
-//        $this->validateLogin($request);
-//        $request = $request->except(['_token']);
-
-//        dd($request);
-
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
+//        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 1])) {
+//            return redirect()->to('/admin/dashboard');
+//        }
+//        else{
+//            return redirect()
+//                    ->back()
+//                    ->withInput($request->only($this->username(), 'remember'))
+//                    ->with('warning', '“Invalid Email or Password”');
+//        }
+//
+        $this->validateLogin($request);
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
