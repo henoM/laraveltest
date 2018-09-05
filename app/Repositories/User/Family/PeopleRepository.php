@@ -35,7 +35,21 @@ class PeopleRepository implements PeopleInterface
      */
     public function people($id)
     {
-       return $this->model->findOrFail($id);
+//        $people = $this->model->whereDoesntHave('Homes',function ($query) {
+//            $query->where('name','name');
+//        })->get();
+//
+//        $people = $this->model->withCount('Homes')->get();
+//        foreach ($people as $peopl) {
+//            dd($peopl->id);
+//        }
+         $people = $this->model->max('age');
+        dd($people);
+//       foreach($this->model->where('id', $id)->cursor() as $flight) {
+//            dd($flight);
+//        }
+
+//       return  $this->model->findOrFail($id);
     }
     /**
      * @param $id

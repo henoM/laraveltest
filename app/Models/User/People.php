@@ -21,4 +21,5 @@ class People extends Model
     {
         return $this->belongsToMany('App\Models\User\Home','home_people');
     }
+
 }

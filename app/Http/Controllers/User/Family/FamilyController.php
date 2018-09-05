@@ -66,6 +66,7 @@ class FamilyController extends Controller
      */
     public function people($id)
     {
+
         $people  = $this->peopleRepo->people($id);
 
         $homes = $people->Homes;
